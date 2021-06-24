@@ -1,0 +1,43 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "lint:frontend": " npm run lint frontend && npm run lint:fix frontend",
+    "lint:backend": "npm run lint backend && npm lint:fix backend",
+    "dev:server": "cd backend && npm start",
+    "dev:client": "cd frontend && npm start",
+    "start": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "test": "mocha",
+    "postinstall": "cd backend && npm install && cd ../frontend && npm install && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.27.0",
+    "husky": "^5.1.3",
+    "lint-staged": "^10.5.4"
+  },
+  "dependencies": {
+    "concurrently": "^6.2.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "mocha": "^9.0.1",
+    "nodemon": "^2.0.7"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix src/",
+      "npm run lint:fix",
+      "git add"
+    ]
+  }
+}
